@@ -38,7 +38,9 @@
     "flags:parity": "npx tsx scripts/check-flag-parity.ts",
     "check:i18n": "scripts/check-i18n-coverage.sh",
     "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch"
+    "test:watch": "jest --watch",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:ui": "npx playwright test --grep @smoke --ui"
   },
   "keywords": [],
   "author": "",
