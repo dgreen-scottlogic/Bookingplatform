@@ -37,8 +37,10 @@
     "flags:migrate": "npx tsx scripts/migrate-flags-to-unleash.ts",
     "flags:parity": "npx tsx scripts/check-flag-parity.ts",
     "check:i18n": "scripts/check-i18n-coverage.sh",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch"
+    "test": "npx playwright test",
+    "test:watch": "jest --watch",
+    "test:smoke": "npx playwright test --grep @smoke",
+    "test:ui": "npx playwright test --grep @smoke --ui"
   },
   "keywords": [],
   "author": "",
@@ -65,6 +67,7 @@
     "unleash-client": "^6.11.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.1",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/bcryptjs": "^2.4.6",
     "@types/jest": "^30.0.0",
