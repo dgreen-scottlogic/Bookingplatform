@@ -5,28 +5,28 @@ Running on CI has not yet been enabled.
 
 ## Running Tests
 
-1. Run all tests
+1. Run all tests:
 
 ```powershell
   npm run test
   ```
 
-2. Run all smoke tests
+2. Run all smoke tests:
 
 ```powershell
   npm run test:smoke
   ```
-3. Run all ui smoke tests
+3. Run all ui smoke tests:
 
 ```powershell
   npm run test:ui
   ```
-4. Run tests on specific browsers
+4. Run tests on specific browsers:
 
 ```powershell
   npx playwright test --project firefox --project webkit
   ```
-5. Run specific test
+5. Run specific test:
  ```powershell
   npx playwright test -g "book available rink"
   ```
