@@ -3,28 +3,30 @@
 Follow these instructions to run smoke tests on Playwright. By default, all tests are run on a local server in browsers Firefox, Chrome and Safari.
 Running on CI has not yet been enabled. 
 
-## Run all tests 
+## Running Tests
+
+1. Run all tests
 
 ```powershell
   npm run test
   ```
 
-## Run Smoke Tests
+2. Run all smoke tests
 
 ```powershell
   npm run test:smoke
   ```
-## Run In UI mode
+3. Run all ui smoke tests
 
 ```powershell
   npm run test:ui
   ```
-## Run On Specific Browsers
+4. Run tests on specific browsers
 
 ```powershell
   npx playwright test --project firefox --project webkit
   ```
-## Run A Specific Test
+5. Run specific test
  ```powershell
   npx playwright test -g "book available rink"
   ```
