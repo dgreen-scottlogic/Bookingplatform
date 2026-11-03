@@ -9,7 +9,10 @@ type Pages = { loginPage: LoginPage; homePage: HomePage; clubUserBooking: ClubUs
 export const test = base.extend < Pages > ({
 
   registerPage: async ({page}, use) => {
-    await use( new RegisterPage(page) );
+    
+    const registerPage = new RegisterPage(page) ;
+    await registerPage.register('new_account@email.com', 'new', 'lakeview-bowls');
+    await use(registerPage);
   },
 
   loginPage: async ({page}, use) => { 
