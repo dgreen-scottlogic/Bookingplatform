@@ -10,6 +10,10 @@ constructor(private readonly page: Page) {
     this.password = page.getByRole('textbox', {name:'Password'});
     this.submit = page.getByRole('button', {name: 'Sign In'});
 }
+
+async goto() {
+    await this.page.goto('http://localhost:3000/auth/login')
+}
  
 async login(email: string, password: string) { 
     await this.email.fill(email); 

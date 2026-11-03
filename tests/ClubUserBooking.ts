@@ -11,7 +11,7 @@ export class ClubUserBooking {
         this.requestBooking = page.getByRole('button', {name: 'Request Booking'});
     }
 
-    async goToBookingPage() {
+    async goto() {
         await this.bookingPage.click();
     }
     async chooseBookingDate(date: string) {

@@ -11,7 +11,7 @@ export class HomePage {
         this.addYourClub = page.getByRole('link', {name:'Add Your Club'});
     }
 
-    async goToHomePage() {
+    async goto() {
         await this.page.goto('http://localhost:3000/')
     }
     async goToLogIn() {
