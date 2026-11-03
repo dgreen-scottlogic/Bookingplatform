@@ -3,8 +3,9 @@ import { RegisterPage } from './RegisterPage';
 import { LoginPage } from './LoginPage';
 import { ClubUserBooking } from './ClubUserBooking';
 import { test as base } from '@playwright/test';
+import { CleanUp } from './CleanUp';
 
-type Pages = { loginPage: LoginPage; homePage: HomePage; clubUserBooking: ClubUserBooking, registerPage: RegisterPage }; 
+type Pages = { loginPage: LoginPage; homePage: HomePage; clubUserBooking: ClubUserBooking, registerPage: RegisterPage, cleanUp: CleanUp }; 
  
 export const test = base.extend < Pages > ({
 
@@ -22,8 +23,14 @@ export const test = base.extend < Pages > ({
   homePage: async ({ page }, use) => { 
     await use( new HomePage(page) ); 
   }, 
+
   clubUserBooking: async ({ page }, use) => { 
     await use( new ClubUserBooking(page) ); 
   },
+
+  cleanUp: async ({ page }, use) => {
+    await use( new CleanUp(page) );
+  }
+  
 }); 
 export { expect } from '@playwright/test'; 
