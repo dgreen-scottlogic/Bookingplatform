@@ -1,34 +1,39 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './helpers/test';
+import userLogins from './helpers/userLogins';
+import date from './helpers/date';
 
-test('homepage shows page header @smoke', async ({ page }) => {
-    await page.goto('http://localhost:3000/');
+test.beforeEach(async ({ homePage }) => {
+    await homePage.goto();
+})
+
+test.afterEach(async ({ page, cleanUp }) => {
+await cleanUp.signOut();
+await page.close();
+});
+
+test('homepage shows page header', async ({ page }) => {
     await expect(page.getByRole('heading', { name : 'Club Management Platform'})).toBeVisible();
+});
+
+userLogins.forEach(({ email, password, expectedURL }) => {
+    test(`testing with email login ${email} @smoke`, async ({ homePage, loginPage, page }) => {
+        await homePage.goToLogIn();
+        await Promise.all([
+            page.waitForURL(`**${expectedURL}`),
+            loginPage.login(email, password),
+        ]);
+    })
 })
 
-test('log in as club member @smoke', async ({ page }) => {
-    await page.goto('http://localhost:3000/');
-    await page.getByRole('link', {name: 'Sign In'}).click();
-    await page.getByRole('textbox', {name:'Email'}).fill('testingaccount@email.com');
-    await page.getByRole('textbox', {name:'Password'}).fill('testing');
-    await page.getByRole('button', {name: 'Sign In'}).click();
+
+test('book available rink', async ({ homePage, loginPage, clubUserBookingPage, page }) => {
+    await homePage.goToLogIn();
     
-    await expect(page).toHaveURL('http://localhost:3000/lakeview-bowls');
-})
+    await loginPage.login(userLogins[0].email, userLogins[0].password);
 
-test('book available rink @smoke', async ({ page }) => {
-    await page.goto('http://localhost:3000/');
-    await page.getByRole('link', {name: 'Sign In'}).click();
-    await page.getByRole('textbox', {name:'Email'}).fill('testingaccount@email.com');
-    await page.getByRole('textbox', {name:'Password'}).fill('testing');
-    await page.getByRole('button', {name: 'Sign In'}).click();
-
-    await page.getByRole('link', {name: 'Bookings'}).click();    
-    await page
-        .getByRole('button')
-        .filter({hasText:'Open'})
-        .nth(0)
-        .click();
-    await page.getByRole('button', {name: 'Request Booking'}).click();
+    await clubUserBookingPage.goto();
+    await clubUserBookingPage.chooseBookingDate(date);
+    await clubUserBookingPage.pickFirstAvailableSlot();
 
     await expect(page.getByText('Booking requested for you successfully!')).toBeVisible();  
 })
