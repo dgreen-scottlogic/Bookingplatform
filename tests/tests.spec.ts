@@ -1,26 +1,22 @@
-import { test, expect } from './test';
+import { test, expect } from './helpers/test';
+import userLogins from './helpers/userLogins';
+import date from './helpers/date';
 
-test.beforeEach(async ({ page }) => {
-    await page.goto('/');
+test.beforeEach(async ({ homePage }) => {
+    await homePage.goto();
 })
 
 test.afterEach(async ({ page, cleanUp }) => {
 await cleanUp.signOut();
+await page.close();
 });
 
-test('homepage shows page header @smoke', async ({ page }) => {
+test('homepage shows page header', async ({ page }) => {
     await expect(page.getByRole('heading', { name : 'Club Management Platform'})).toBeVisible();
 });
 
-const userLogins = [
-    {email: 'testingaccount@email.com', password: 'testing', expectedURL: '/lakeview-bowls'},
-    {email: 'noclub@email.com', password: 'no', expectedURL: '/dashboard'},
-    {email: 'admin@lakeview.club', password: 'club123', expectedURL: '/lakeview-bowls'},
-    {email: 'admin@wlbooking.com', password: 'admin123', expectedURL: '/dashboard'}
-];
-
 userLogins.forEach(({ email, password, expectedURL }) => {
-    test(`testing with email login ${email}`, async ({ homePage, loginPage, page }) => {
+    test(`testing with email login ${email} @smoke`, async ({ homePage, loginPage, page }) => {
         await homePage.goToLogIn();
         await Promise.all([
             page.waitForURL(`**${expectedURL}`),
@@ -30,27 +26,14 @@ userLogins.forEach(({ email, password, expectedURL }) => {
 })
 
 
-test('book available rink @smoke', async ({ homePage, loginPage, clubUserBooking, page }) => {
-
+test('book available rink', async ({ homePage, loginPage, clubUserBookingPage, page }) => {
     await homePage.goToLogIn();
     
-    await loginPage.login('testingaccount@email.com', 'testing');
+    await loginPage.login(userLogins[0].email, userLogins[0].password);
 
-    await clubUserBooking.goto();
-    await clubUserBooking.chooseBookingDate('2026-11-03');
-    await clubUserBooking.pickFirstAvailableSlot();
+    await clubUserBookingPage.goto();
+    await clubUserBookingPage.chooseBookingDate(date);
+    await clubUserBookingPage.pickFirstAvailableSlot();
 
     await expect(page.getByText('Booking requested for you successfully!')).toBeVisible();  
 })
-
-// test('register as club member @smoke', async ({ homePage, registerPage, loginPage, page }) => {
-
-//     await homePage.goToRegister();
-
-//     await registerPage.register('newaccount@email.com', 'new', 'lakeview-bowls');
-//     await expect(page.getByText('Registration successful!')).toBeVisible();
-
-//     await loginPage.login('newaccount@email.com', 'new');
-//     await expect(page).toHaveURL('/lakeview-bowls');
-    
-// })
