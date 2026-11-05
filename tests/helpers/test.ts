@@ -1,14 +1,20 @@
 import { HomePage } from '../pages/HomePage';
+import { RegisterPage } from '../pages/RegisterPage';
 import { LoginPage } from '../pages/LoginPage';
 import { ClubUserBookingPage } from '../pages/ClubUserBookingPage';
 import { test as base } from '@playwright/test';
 import { CleanUp } from './CleanUp';
 
-type Pages = { loginPage: LoginPage; homePage: HomePage; clubUserBookingPage: ClubUserBookingPage, cleanUp: CleanUp }; 
+type Pages = { loginPage: LoginPage; homePage: HomePage; clubUserBookingPage: ClubUserBookingPage, cleanUp: CleanUp, registerPage: RegisterPage }; 
  
 export const test = base.extend < Pages > ({
 
-  loginPage: async ({page}, use) => { 
+  registerPage: async ({ page }, use) => {
+    
+    await use( new RegisterPage(page) );
+  },
+
+  loginPage: async ({ page }, use) => { 
     await use( new LoginPage(page) );
   }, 
 
