@@ -64,6 +64,13 @@ export default defineConfig({
       dependencies: ['setup'],
     },
 
+    {
+      name: 'Pixel 7',
+      use: { ...devices['Pixel 7'] ,
+      storageState: 'playwright/.auth/user.json'},
+      dependencies: ['setup'],
+    },
+
     /* Test against mobile viewports. */
     // {
     //   name: 'Mobile Chrome',
