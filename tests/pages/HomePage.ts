@@ -15,14 +15,12 @@ export class HomePage {
         await this.page.goto('/')
     }
     async goToLogIn() {
-        await this.logIn.click()
+        // await this.logIn.click()
+        await this.page.goto('/auth/login')
     }
 
     async goToRegister() {
-        await this.register.click()
-    }
-
-    async goToAddYourClub() {
-        await this.addYourClub.click()
+        // await this.register.click()
+        await this.page.goto('/auth/register')
     }
 }

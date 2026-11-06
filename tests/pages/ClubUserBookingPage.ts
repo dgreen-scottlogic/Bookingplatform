@@ -12,7 +12,8 @@ export class ClubUserBookingPage {
     }
 
     async goto() {
-        await this.bookingPage.click();
+        await this.page.goto('/dashboard/bookings')
+        await this.page.waitForLoadState('networkidle');
     }
     async chooseBookingDate(date: string) {
         await this.page.locator('input[type="date"]').fill(date);
