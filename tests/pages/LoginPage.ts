@@ -11,9 +11,10 @@ constructor(private readonly page: Page) {
     this.submit = page.getByRole('button', {name: 'Sign In'});
 }
  
-async login(email: string, password: string) { 
+async login(email: string, password: string, expectedURL: string) { 
     await this.email.fill(email); 
     await this.password.fill(password); 
     await this.submit.click(); 
+    await this.page.waitForURL(expectedURL)
   }
 }

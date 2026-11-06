@@ -15,12 +15,16 @@ constructor(private readonly page: Page) {
     this.submit = page.getByRole('button', {name: 'Register'});
 }
  
+async goto() {
+  await this.page.goto('/auth/register')
+}
 async registerWithClub(name: string, email: string, password: string, clubSlug: string) { 
     await this.name.fill(name);
     await this.email.fill(email); 
     await this.password.fill(password);
     await this.clubSlug.fill(clubSlug);
     await this.submit.click(); 
+    await this.page.waitForLoadState('networkidle');
   }
 
 async registerWithoutClub(name: string, email: string, password: string) { 
@@ -28,6 +32,7 @@ async registerWithoutClub(name: string, email: string, password: string) {
     await this.email.fill(email); 
     await this.password.fill(password);
     await this.submit.click(); 
+    await this.page.waitForLoadState('networkidle');
   }
 
 }
