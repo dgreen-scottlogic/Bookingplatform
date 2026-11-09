@@ -2,7 +2,7 @@ import { APIRequestContext, Request, type Locator, type Page } from '@playwright
 import { bookingId, randomTime } from '../helpers/NewBookingData';
 import date from '../helpers/date';
 
- export async function CreateUserPost( request: APIRequestContext ) {
+ export async function CreateBooking( request: APIRequestContext ) {
     const response = await request.post('/api/bookings', {data:{
   "date": date,
   "slots": [
