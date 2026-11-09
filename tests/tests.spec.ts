@@ -2,6 +2,7 @@ import { test, expect } from './helpers/test';
 import userLogins from './helpers/userLogins';
 import { randomName, randomEmail, randomPassword, clubSlugDefault } from './helpers/NewUserLogin';
 import { registrationConfMsg, bookingConfMsg } from './helpers/ConfirmationMessages';
+import { CreateBooking } from './pages/CreateBooking';
 
 test.beforeEach(async ({ homePage }) => {
     await homePage.goto();
@@ -86,3 +87,8 @@ test('GET /api/bookings returns a list', { tag: '@api' }, async ({ request }) =>
   expect(body.length).toBeGreaterThan(0); 
   expect(body[0]).toHaveProperty('id'); 
 }); 
+
+test('create a booking', { tag: '@api' }, async ({ request }) => { 
+  const response = await CreateBooking(request);
+  expect(response.status()).toBe(201);  
+});
