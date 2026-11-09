@@ -15,6 +15,7 @@ export class CleanUp {
 
     async signOut() {
         await this.page.goto('/dashboard');
+        await this.page.waitForLoadState('networkidle');
         if (await this.signOutButton.isVisible()) {
             await this.signOutButton.click()
         }
