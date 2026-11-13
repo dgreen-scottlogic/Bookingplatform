@@ -6,7 +6,7 @@ import date from '../helpers/date';
     const response = await request.post('/api/bookings', {data:{
   "date": date,
   "slots": [
-    { "rinkId": "seed-rink-7", "timeSlot": `${randomTime}:00`, "playerName": "Test Player", "bookingId": `${bookingId}` }
+    { "rinkId": "seed-rink-7", "timeSlot": `${randomTime}:00`, "playerName": "Test Player" }
   ]
 }});
 return (response)
